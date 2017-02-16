@@ -1,7 +1,7 @@
 <?php
 $url = $_SERVER['HTTP_HOST'];
 define('BASE_URL', 'http://frame.laonie.com');
-define('CLOUD_URL', 'http://odfang.oss-cn-hangzhou.aliyuncs.com');
+define('CLOUD_URL', '');
 define('MEMCACHE_SWITCH',0);
 return array(
     'mysqlDb' => array(
@@ -34,23 +34,23 @@ return array(
     'weiXin' => array(
         'weiXinToken' => 'edward_nie',
         'weiXinApi' => 'https://api.weixin.qq.com/cgi-bin/',
-        'appId' => 'wx02250f651bee1bd3',
-        'appSecret' => '3e9fb7a1c61a2be7d88e66d119d450df'
+        'appId' => '',
+        'appSecret' => ''
     ),
 
     'aliyun' => array(
         'Bucket' => 'odfang',
-        'AccessKeyId' => 'BBjDi8uydiZ0PaPJ',
-        'AccessKeySecret' => '2TfefbfURs76q8UYBOsCBNCXeOxCBW'
+        'AccessKeyId' => '',
+        'AccessKeySecret' => ''
     ),
 
     'weibo' => array(
         'appKey' => '4230238129',
-        'secretKey' => 'a76e8ab4b32e39d4e4cdfa0211e75083',
+        'secretKey' => '',
         'callback' => BASE_URL . '/?method=Sina.callback'
     ),
     'webChat' => array(
-        'appId' => 'wx03b735be01e5d967',
-        'appSecret' => 'ca4cef628f045c1a8348031d994e025f'
+        'appId' => '',
+        'appSecret' => ''
     )
 );
