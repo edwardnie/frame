@@ -1,0 +1,185 @@
+<!doctype html>
+<html>
+<head>
+    <title>chat</title>
+    <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="javascripts/jquery-1.11.2.min.js"></script>
+    <script src="bootstrap/js/bootstrap.min.js"></script>
+    <script src="javascripts/angular.min.js"></script>
+</head>
+<body>
+<div class="container" ng-app="cApp" ng-controller="searchCtrl">
+    <div class="message_list" style="width: 500px;height: 400px;overflow: auto;border: 1px solid #333;float: left">
+        <ul ng-repeat="item in messages">
+            <li>{{item.user}} : {{item.txt}}</li>
+        </ul>
+    </div>
+
+    <div style="width: 300px;height: 400px;overflow: auto;border: 1px solid #333">
+        在线用户列表：
+        <ul ng-repeat="user in users">
+            <li class="user_list">{{user}}</li>
+        </ul>
+    </div>
+
+    <div style="clear: both"></div>
+
+    <p>
+        消息：<input ng-model="message" ng-keyup="myKeyUp($event)"/>
+        <input type="submit" value="send" ng-click="sendMessage()">
+    </p>
+
+    <p>
+        私聊：
+        <select ng_model="index" >
+            <option ng-repeat="user in users" value="{{user}}">{{user}}</option>
+        </select>
+
+        <input ng-model="private_message" ng-keyup="myKeyUpP($event)"/>
+        <input type="submit" value="send" ng-click="sendMessageP()">
+    </p>
+
+    <p>当前昵称：<span class="username"><%= username %></span></p>
+    <!--<p>-->
+
+    <!--修改聊天昵称：<input ng-model="newName" />-->
+    <!--<input type="submit" value="修改" ng-click="changeName()">-->
+    <!--</p>-->
+</div>
+<script>
+
+
+    // Declare app level module which depends on filters, and services
+    var app = angular.module('cApp', []);
+    // Demonstrate how to register services
+    // In this case it is a simple value service.
+    app.factory('socket', function ($rootScope) {
+        var socket = io.connect();
+        return {
+            on: function (eventName, callback) {
+                socket.on(eventName, function () {
+                    var args = arguments;
+                    $rootScope.$apply(function () {
+                        callback.apply(socket, args);
+                    });
+                });
+            },
+            emit: function (eventName, data, callback) {
+                socket.emit(eventName, data, function () {
+                    var args = arguments;
+                    $rootScope.$apply(function () {
+                        if (callback) {
+                            callback.apply(socket, args);
+                        }
+                    });
+                })
+            }
+        };
+    });
+
+    app.controller('searchCtrl', function ($scope, socket) {
+        $scope.messages = [];
+//        $scope.users = [];
+//        //初始化，有人进来的时候
+        socket.emit('user:login', {user: $('.username').text()}, function (rs) {
+            if (!rs) {
+                alert('用户名已存在,请重新尝试!');
+                window.location.href = '/?clearCookie=1';
+                return false;
+            } else {
+                socket.emit('user:join', {user: $('.username').text()});
+            }
+        });
+
+        socket.on('init', function (data) {
+            $scope.name = data.name;
+            $scope.users = data.users;
+            $('.message_list').scrollTop($('.message_list')[0].scrollHeight + 300);
+        });
+
+        socket.on('send:message', function (msg) {
+            $scope.messages.push(msg);
+            $('.message_list').scrollTop($('.message_list')[0].scrollHeight + 300);
+        });
+
+        socket.on('send:private_message', function (msg) {
+            $scope.messages.push(msg);
+            $('.message_list').scrollTop($('.message_list')[0].scrollHeight + 300);
+        });
+
+        socket.on('user:join', function (data) {
+            $scope.users.push(data.name);
+            $scope.messages.push({user: '系统通知', txt: data.name + '加入了聊天'});
+            $('.message_list').scrollTop($('.message_list')[0].scrollHeight + 300);
+        });
+
+        socket.on('change:name', function (data) {
+            changName(data.oldName, data.newName);
+        });
+
+
+        socket.on('user:left', function (data) {
+            var i;
+            for (i = 0; i < $scope.users.length; i++) {
+                if ($scope.users[i] == data.name) {
+                    $scope.users.splice(i, 1);
+                    break;
+                }
+            }
+            $scope.messages.push({user: '系统通知', txt: data.name + '离开了聊天'});
+            $('.message_list').scrollTop($('.message_list')[0].scrollHeight + 300);
+        });
+
+
+        $scope.myKeyUp = function (e) {
+            var keycode = window.event ? e.keyCode : e.which;
+            console.log(keycode);
+            if (keycode == 13) {
+                $scope.sendMessage();
+            }
+        };
+
+        $scope.myKeyUpP = function (e) {
+            var keycode = window.event ? e.keyCode : e.which;
+            console.log(keycode);
+            if (keycode == 13) {
+                $scope.sendMessageP();
+            }
+        };
+
+
+        $scope.sendMessage = function () {
+            socket.emit('send:message', {txt: $scope.message, user: $('.username').text()});
+            $scope.messages.push({user: $('.username').text(), txt: $scope.message});
+            $scope.message = '';
+            $('.message_list').scrollTop($('.message_list')[0].scrollHeight + 300);
+        };
+
+
+        $scope.sendMessageP = function () {
+            if(!$scope.index){alert('请选择私聊对象');return false;}
+            $scope.private_message = '【私聊】'+$scope.private_message;
+            socket.emit('send:private_message', {txt: $scope.private_message, user: $('.username').text(),to_user:$scope.index});
+            $scope.messages.push({user: $('.username').text(), txt: $scope.private_message});
+            $scope.private_message = '';
+            $('.message_list').scrollTop($('.message_list')[0].scrollHeight + 300);
+        };
+
+        var changName = function (oldName, newName) {
+            $scope.messages.push({user: '系统通知', txt: "'" + oldName + "'" + ' 改名为 ' + "'" + newName + "'"});
+            var i;
+            for (i = 0; i < $scope.users.length; i++) {
+                if ($scope.users[i] == oldName) {
+                    $scope.users[i] = newName;
+                    break;
+                }
+            }
+            $('.message_list').scrollTop($('.message_list')[0].scrollHeight + 300);
+        };
+    });
+
+
+</script>
+</body>
+</html>

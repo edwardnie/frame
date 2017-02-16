@@ -1,0 +1,1 @@
+<audio src="<?php echo BASE_URL.'/laonie.mp3' ?>" controls="controls" loop="loop" autoplay="autoplay">

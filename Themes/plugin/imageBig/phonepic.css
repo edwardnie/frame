@@ -1,0 +1,49 @@
+.section_3{
+	width:100%;
+	height:auto;
+	overflow:auto;
+	background:#f2f2f2;	
+}
+.shop-bg{
+	position:relative;	
+}
+.shop-bg img{
+	width:100%;
+	min-height: 100px;
+	display:block;
+}
+.imgNum{
+	position:absolute;
+	right:10px;
+	top:10px;
+	width:25px;
+	height:15px;
+	display:block;
+	background:rgba(0,0,0,0.5);
+	line-height:15px;
+	font-size:12px;
+	color:#fff;
+	text-align:center;
+	z-index:9;
+	border-radius:5px;	
+}
+/* swipe */
+.swipe{position: fixed; left: 0; top: 0; width: 100%; height: 100%; background-color: #000; z-index: 1000; display: none;}
+.swipe .loading{position: absolute; z-index: 0; left: 50%; top: 50%;}
+.swipe.show{display: block;}
+.swipe ul{position: relative; height: 100%; display: none;}
+.swipe li{position: absolute; left: 0; top: 0; width: 100%; height: 100%; display: none;}
+.swipe .cur{z-index: 10; display: block;}
+.swipe .action{z-index: 11; display: block;}
+.animated{-webkit-transition: .3s;}
+.swipe li > div{position: relative; height: 100%; background-repeat: no-repeat; background-position: center; background-size: contain;}
+
+.swipe .swipe_num{position: absolute; left: 0; width: 100%; height: 8px; line-height: 8px; bottom: 20px; text-align: center; z-index: 11;}
+.swipe .swipe_num span{display: inline-block; width: 8px; height: 8px; border-radius: 8px; background-color: #7c7c7c; margin: 0 4px;}
+.swipe .swipe_num span.on{background-color: #fff;}
+
+.swipe.show ul{display: block; -webkit-animation: show .4s;}
+@-webkit-keyframes show{
+	0%{-webkit-transform: scale(0);}
+	100%{-webkit-transform: scale(1);}
+}	
