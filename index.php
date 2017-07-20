@@ -1,4 +1,16 @@
 <?php
+date_default_timezone_set('Asia/Shanghai'); //'Asia/Shanghai'   亚洲/上海
+$month = date('Ym');
+$firstDay = $month . '01';
+if ( $month == '201706' ) {
+    $firstDay = $month . '05';
+}
+//echo $startTime = strtotime( $firstDay );
+//echo '<br>';
+//echo $endTime = strtotime( date( 'Y-m-d', strtotime( "$firstDay +1 month -1 day" ) ) )+86400;
+//     exit();
+
+
 define("ROOT_DIR", dirname(__FILE__) . '/');
 define("MOD_DIR", ROOT_DIR . "Model/");
 define("CON_DIR", ROOT_DIR . "Controller/Framework/");
@@ -20,6 +32,8 @@ $method = explode('.', $method);
 $con = ucfirst($method[0]) . "Controller";
 $act = $method[1];
 $conObject = new $con();
+//echo strtotime('20170606');
+//exit();
 if (method_exists($conObject, $act)) {
     try {
         $result = $conObject->$act();

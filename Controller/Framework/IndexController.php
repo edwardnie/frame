@@ -3,23 +3,15 @@
 class IndexController extends Framework_BaseController {
 
     public function index() {
-        $str = "123聂年红<.*?13214!@##@$#%#fdas";
+        $img = "http://wx.qlogo.cn/mmopen/6MSTLT93SHuPRaJuO0SJicpFWicX9HVzDgHdybUDza0icgQdM8eYIteqWz6OsvxVEFO0rKoFMQSYtr56ASEVHb51h8BCshHxH7G/0";
+//        $rs = file_get_contents($img);
 
-        preg_match_all("/(\x{4e00}-\x{9fa5})|\w/u",$str,$matches);
-        $abc = implode('', $matches[0]);
+        $rs = Helper_Request::curlPost($img,array(),false);
+        echo ROOT_DIR.'laonie.jpg';
+        file_put_contents(ROOT_DIR.'laonie.jpg',$rs);
+        Helper_Image::imageResize(ROOT_DIR.'laonie.jpg',ROOT_DIR.'laonie_new.jpg',200);
 
-        //var_dump($matches);
-//
-//            preg_match_all("/^[\\x{4e00}-\\x{9fa5}]+$/u",$str,$matches);
-//        var_dump($matches);
-        $abc = implode('', $matches[0]);
-        var_dump($abc);
-        exit();
-
-        $_nowip = '183.28.123.123';
-        if(in_array($_nowip,array('183.28.170.109','183.28.171.241','183.28.140.171','	113.85.195.235')) || preg_match("/183\.28\.(.*?)/",$_nowip) ||preg_match("/113\.85\.(.*?)/",$_nowip) ||preg_match("/222\.246\.(.*?)/",$_nowip) ||preg_match("/223\.158\.(.*?)/",$_nowip)){
-            exit("對不起，您無法繼續訪問!Sorry you cannot visit here!Please contact us!");
-        }
+        echo 123;
         exit;
 
         $this->disPlayPage('laonie.php');

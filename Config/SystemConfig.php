@@ -31,12 +31,28 @@ return array(
     'configUrl' => BASE_URL . '/',
     'adminUrl' => BASE_URL . '/center_op.php',
     'apiUrl' => BASE_URL . '/api.php',
-    'weiXin' => array(
-        'weiXinToken' => 'edward_nie',
-        'weiXinApi' => 'https://api.weixin.qq.com/cgi-bin/',
-        'appId' => '',
-        'appSecret' => ''
-    ),
+    //来来
+//    'weiXin' => array(
+//        'weiXinToken' => 'laiyibatoken',
+//        'weiXinApi' => 'https://api.weixin.qq.com/cgi-bin/',
+//        'appId' => 'wx8ab200e5f751425b',
+//        'appSecret' => 'b317907e426e88c52e90b8c32781727d'
+//    ),
+       //来3
+        'weiXin' => array(
+            'weiXinToken' => 'laiyibatoken',
+            'weiXinApi' => 'https://api.weixin.qq.com/cgi-bin/',
+            'appId' => 'wx5f620d428af83fd8',
+            'appSecret' => '1e19410f93968f86d3ad95ebff21ec1a'
+        ),
+
+    //宁波
+//    'weiXin' => array(
+//        'weiXinToken' => 'laiyibatoken',
+//        'weiXinApi' => 'https://api.weixin.qq.com/cgi-bin/',
+//        'appId' => 'wx58b0ac91ff25b08c',
+//        'appSecret' => '5d68c16c3e2cd4c9197f4da661e998d6'
+//    ),
 
     'aliyun' => array(
         'Bucket' => 'odfang',

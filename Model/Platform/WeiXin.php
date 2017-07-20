@@ -63,17 +63,17 @@ class Platform_WeiXin {
 	 * @param $config
 	 */
 	public function getAccessToken() {
-		$cache = $this->_getCache();
-		$accessToken = $cache->get( 'wei_access_token' );
-		if ( $accessToken ) {
-			return $accessToken;
-		}
+//		$cache = $this->_getCache();
+//		$accessToken = $cache->get( 'wei_access_token' );
+//		if ( $accessToken ) {
+//			return $accessToken;
+//		}
 		$appId = $this->_weiXin['appId'];
 		$secret = $this->_weiXin['appSecret'];
-		$url = $this->_weiXin['weiXinApi'] . "token?grant_type=client_credential&appid={$appId}&secret={$secret}";
+		echo $url = $this->_weiXin['weiXinApi'] . "token?grant_type=client_credential&appid={$appId}&secret={$secret}";
 		$response = Helper_Request::curlPost( $url, '', false );
 		$response = json_decode( $response, true );
-		$cache->set( 'wei_access_token', $response['access_token'], 0, (integer)$response['expires_in'] );
+		//$cache->set( 'wei_access_token', $response['access_token'], 0, (integer)$response['expires_in'] );
 		return $response['access_token'];
 	}
 

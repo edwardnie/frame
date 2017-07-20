@@ -2,9 +2,14 @@
 
 class Helper_Tools {
 
+//    //添加utf-8头标签
+//    public static function addUTF8Header() {
+//        header("Content-type: text/html; charset=utf-8");
+//    }
+
     //添加utf-8头标签
     public static function addUTF8Header() {
-        header("Content-type: text/html; charset=utf-8");
+        header("Content-type: text/json; charset=utf-8");
     }
 
     //获取文件名，支持中文

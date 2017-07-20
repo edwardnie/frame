@@ -23,71 +23,167 @@ class WeiXinController extends Framework_BaseController {
     }
 
     public function menuAdd() {
+        Helper_Tools::addUTF8Header();
         $accessToken = Platform_WeiXin::getInstance( false )->getAccessToken();
+        //var_dump($accessToken);
         $url = $this->_weiXin['weiXinApi'] . 'menu/create?access_token=' . $accessToken;
-        $data = '';
-        /**'{
-         * "button": [
-         * {
-         * "name": "菜单",
-         * "sub_button": [
-         * {
-         * "type": "view",
-         * "name": "搜索",
-         * "url": "http://www.soso.com/"
-         * },
-         * {
-         * "type": "view",
-         * "name": "视频",
-         * "url": "http://v.qq.com/"
-         * },
-         * {
-         * "type": "click",
-         * "name": "赞我一下",
-         * "key": "523"
-         * }
-         * ]
-         * },
-         * {
-         * "name": "技术进阶",
-         * "sub_button": [
-         * {
-         * "type": "view",
-         * "name": "菜鸟",
-         * "url": "http://www.soso.com/"
-         * },
-         * {
-         * "type": "view",
-         * "name": "老菜鸟",
-         * "url": "http://v.qq.com/"
-         * },
-         * {
-         * "type": "view",
-         * "name": "小牛",
-         * "url": "http://v.qq.com/"
-         * },
-         * {
-         * "type": "view",
-         * "name": "大牛",
-         * "url": "http://v.qq.com/"
-         * },
-         * {
-         * "type": "view",
-         * "name": "神人",
-         * "url": "http://v.qq.com/"
-         * }
-         * ]
-         * },
-         * {
-         * "type": "click",
-         * "name": "按钮事件",
-         * "key": "3"
-         * }
-         * ]
-         * }';    **/
+        echo $url;
+        exit();
+        //来来斗、牛、菜、单
+//        $data = '
+//        {
+//             "button": [
+//             {
+//                 "name": "下载游戏",
+//                 "sub_button": [
+//                     {
+//                         "type": "view",
+//                         "name": "来来拼十",
+//                         "url": "http://dn.lailaipk.com/"
+//                     },
+//                     {
+//                        "type": "view",
+//                        "name": "港城麻将",
+//                        "url": "http://nb.618mj.com/"
+//                     }
+//                 ]
+//             },
+//             {
+//                 "name": "招募代理",
+//                 "sub_button": [
+//                     {
+//                         "type": "view",
+//                         "name": "盈利模式",
+//                         "url": "http://mp.weixin.qq.com/s/uVYAcqIfLbiIcT0dDfzf7g"
+//                     },
+//                     {
+//                         "type": "view",
+//                         "name": "绑定代理",
+//                         "url": "http://lai1ba.com/wxcode?type=3&gid=152"
+//                     },
+//                     {
+//                        "type": "view",
+//                        "name": "代理注册",
+//                        "url": "http://lai1ba.com/wxcode?type=1&gid=152"
+//                     },
+//                     {
+//                         "type": "view",
+//                         "name": "代理登入",
+//                         "url": "http://lai1ba.com/wxcode?type=3&gid=152"
+//                     },
+//                     {
+//                         "type": "view",
+//                         "name": "账号密码登录",
+//                         "url": "http://nb.618mj.com/mobile/wx_login"
+//                     }
+//                 ]
+//             },
+//             {
+//                 "name": "联系我们",
+//                 "sub_button": [
+//                     {
+//                         "type": "view",
+//                         "name": "购买房卡",
+//                         "url": "http://lai1ba.com/wxcode?type=2&gid=152"
+//                     },
+//                     {
+//                        "type": "view",
+//                        "name": "常见问题",
+//                        "url": "http://mp.weixin.qq.com/s/lMXf19TVoTkT_0KYM87Obg"
+//                     },
+//                     {
+//                         "type": "click",
+//                         "name": "联系客服",
+//                         "key": "statement"
+//                     },
+//                     {
+//                         "type": "view",
+//                         "name": "注册指南",
+//                         "url": "https://mp.weixin.qq.com/s/cc-4XN5BvzEH0o6d1kbDqg"
+//                     }
+//                 ]
+//             },
+//         }';
+
+//                $data = '
+//                {
+//                     "button": [
+//                     {
+//                         "type": "view",
+//                         "name": "游戏下载",
+//                         "url": "http://zs.618mj.com/"
+//                     },
+//                     {
+//                         "name": "招募代理",
+//                         "sub_button": [
+//                             {
+//                                "type": "click",
+//                                "name": "推广活动",
+//                                "key": "active"
+//                             },
+//                             {
+//                                "type": "view",
+//                                "name": "代理绑定",
+//                                "url": "http://lai1ba.com/wxcode?type=3&gid=128"
+//                             },
+//                             {
+//                                 "type": "view",
+//                                 "name": "代理登入",
+//                                 "url": "http://lai1ba.com/wxcode?type=3&gid=128"
+//                             }
+//                         ]
+//                     },
+//                     {
+//                         "name": "联系我们",
+//                         "sub_button": [
+//                             {
+//                                 "type": "view",
+//                                 "name": "购买房卡",
+//                                 "url": "http://lai1ba.com/wxcode?type=2&gid=128"
+//                             },
+//                             {
+//                                 "type": "click",
+//                                 "name": "联系客服",
+//                                 "key": "statement"
+//                             }
+//                         ]
+//                     },
+//                 }';
+
+
+
+        $data = '{
+                "button":[
+                    {
+                        "name":"游戏下载",
+                        "sub_button":[
+                            {"type":"view","name":"游戏下载","url":"http://lai1ba.com/share/131/32696","sub_button":[]},
+                            {"type":"view","name":"新手引导","url":"https://mp.weixin.qq.com/s?__biz=MzI2MjYyMDcwMA==&mid=2247483672&idx=1&sn=94ed97eebd08d868e7a4bc9ce98ba99b&chksm=ea49126bdd3e9b7d9cbe31593a51bff434b03c4f7ae40406715055daa019f712277d0e75aaca&scene=0&key=224de3a0d1eb57349c5bcd74cd713129c4e24171b3c9e8b6b0ef5f3bb6572300f2c90c7e7ab72ac862f609a690e73449235009e8be414e5ae7ec96a0aa62e6acd325d70def21a3ff0c8cb069816d8e93&ascene=0&uin=MjI0MzkzOTM2NA%3D%3D&devicetype=iMac+MacBookPro12%2C1+OSX+OSX+10.12.3+build(16D32)&version=11020201&pass_ticket=KmKeLI9cwSVpsoqUfovXgt%2F3Es3wY5%2B3%2BG%2FsYRBWfyphokZsin7cRRs%2Bxr0MXo","sub_button":[]},
+                            {"type":"click","name":"人工客服","key":"service","sub_button":[]},
+                            {"type":"click","name":"官方声明","key":"statement","sub_button":[]}
+                        ]
+                    },
+                    {
+                        "name":"游戏充值",
+                        "sub_button":[
+                            {"type":"view","name":"购买钻石","url":"http://lai1ba.com/wxcode?type=2","sub_button":[]}
+                        ]
+                    },
+                    {
+                        "name":"推广后台",
+                        "sub_button":[
+                            {"type":"view","name":"推广员后台","url":"http://lai1ba.com/wxcode?type=3","sub_button":[]},
+                            {"type":"view","name":"申请推广员","url":"http://lai1ba.com/wxcode?type=1","sub_button":[]}
+                        ]
+                    }
+                ]
+            }';
         $response = Helper_Request::curlPost($url,$data);
         var_dump( $response );
     }
+
+//,
+
 
     public function menuDelete() {
         $url = $this->_weiXin['weiXinApi'] . 'menu/delete?access_token=' . Platform_WeiXin::getInstance( false )->getAccessToken();
